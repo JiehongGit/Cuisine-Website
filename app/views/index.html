@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/css/returnTop.css">
+</head>
+<body>
+{{include '/include/nav-top'}}
+{{include '/include/nav-search'}}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 col-xs-12" >
+			<div id="myCarousel" class="carousel slide" data-interval="2000">
+				<!-- 轮播（Carousel）指标 -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+					<li data-target="#myCarousel" data-slide-to="3"></li>
+				</ol>   
+				<!-- 轮播（Carousel）项目 -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<!-- 干煸豆角 -->
+						<a href="/food/5e85a566df611021d11a88ce">
+							<img src="/images/poster/doujiao.png" alt="First slide" style="width: 1500px; height:340px">
+						</a>
+					</div>
+					<div class="item">
+						<!-- 白切鸡 -->
+						<a href="/food/5ae402deddb6ef11680a6774">
+							<img src="/images/poster/baiqieji.png" alt="Second slide" style="width: 1500px; height:340px">
+						</a>
+					</div>
+					<div class="item">
+						<!-- 煲仔饭 -->
+						<a href="/mfood/5ae40adb2840291704571c8b">
+							<img src="/images/poster/baozaifan.png" alt="Third slide" style="width: 1500px; height:340px">
+						</a>
+					</div>
+					<div class="item">
+						<!-- 虾 -->
+						<a href="/food/5ae40d192840291704571c8f">
+							<img src="/images/poster/xia.png" alt="Third slide" style="width: 1500px; height:340px">
+						</a>
+					</div>
+				</div>
+				<!-- 轮播（Carousel）导航 -->
+				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		
+			<div class="alert alert-success" style="margin-top:15px">所有美食</div>
+			<div id="food-container">
+			{{each category as item}}
+			{{if item.foods && item.foods.length>0}}
+				{{each item.foods}}
+				<div class="col-xs-6 col-md-3 food-box">
+					<div class="food-item">
+						<div class="food-post">
+							<a href="/food/{{$value.id}}">
+								<img src="{{$value.poster}}" alt="{{$value.title}}" style="width:180px; height:260px">
+								<div class="zoomOverlay"></div>
+							</a>
+						</div>
+
+						<h3>
+							<a href="/food/{{$value.id}}" style="text-align:center;">{{$value.title}}</a>
+							<a href="/search?cat={{item.id}}&p=0" style="text-align:center;">{{item.name}}</a>
+						</h3>
+						<div class="info">
+							<span class="info-data">
+								<!-- 点击率 -->
+								<span class="glyphicon glyphicon-eye-open"></span>
+								{{$value.pv}}
+							</span>
+							<span class="info-data">
+								<!-- 评论数 -->
+								<span class="fa fa-comment"></span>
+								{{$value.comments}}
+							</span>
+							<span class="info-data">
+								<!-- 口味 -->
+								<span class="glyphicon glyphicon-cutlery"></span>
+								<a style="text-align:center;">{{$value.taste}}</a>
+							</span>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			{{/if}}
+			{{/each}}
+			</div>
+		</div>
+		<div class="col-md-3 col-xs-12">
+			<div class="panel panel-danger ranks">
+				<div class="panel-heading">热门美食排行榜</div>
+  				<div class="panel-body">
+  					{{if ranks && ranks.length}}
+	    			{{each ranks as food index}}
+	    			<p>
+	 					<span class="label label-danger">{{index+1}}</span>
+    					<a href="/food/{{food.id}}">{{food.title}}</a>
+	    			</p>
+	    			{{/each}}
+	    			{{else}}
+	    			<p class="text-center">暂无美食</p>
+	    			{{/if}}
+  				</div>
+			</div>
+			<div class="panel panel-info categories">
+				<div class="panel-heading">美食分类</div>
+  				<div class="panel-body">
+  					{{if category && category.length}}
+	    			{{each category as item}}
+					<a class="btn btn-info btn-lg btn-block" href="/search?cat={{item.id}}&p=0">{{item.name}}&nbsp;&nbsp;
+						<span class="badge">{{item.foods.length}}</span>
+					</a>
+					{{/each}}
+					{{else}}
+					<p class="text-center">暂无分类</p>
+					{{/if}}
+  				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 返回顶部火箭 -->
+<div style="display:none;" id="rocket-to-top">
+	<div style="opacity:0;display:block;" class="level-2"></div>
+	<div class="level-3"></div>
+</div>
+{{include '/include/footer'}}
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/returnTop.js"></script>
+<script type="text/javascript" src="/libs/jquery/jquery.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "moviesite",
+  "version": "1.0.0",
+  "description": "Graduation Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jiehong",
+  "license": "ISC",
+  "dependencies": {
+    "art-template": "^3.1.3",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-mongo": "^2.0.1",
+    "connect-multiparty": "^2.1.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "moment": "^2.21.0",
+    "mongoose": "^5.0.11",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5",
+    "underscore": "^1.8.3"
+  }
+}

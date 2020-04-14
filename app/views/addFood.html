@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" type="text/css" href="/libs/webuploader/webuploader.css">
+	<link rel="stylesheet" href="/css/addFood.css">
+</head>
+<body>
+<div class="container">
+	<form method="post" action="/admin/food/add" class="form-horizotal" enctype="multipart/form-data" id="form-food">
+		<div class="input-group">
+			<span class="input-group-addon">编号</span>
+			<input type="text" class="form-control" id="foodID" name="food[foodID]" placeholder="美食ID" value="{{food.foodID}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食名称</span>
+			<input type="text" required class="form-control" name="food[title]" id="title" placeholder="美食名称" value="{{food.title}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">主料</span>
+			<input type="text" required class="form-control" name="food[main]]" id="main" placeholder="主料" value="{{food.main}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">辅料</span>
+			<input type="text" required class="form-control" name="food[assist]" id="assist" placeholder="辅料" value="{{food.assist}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">口味</span>
+			<input type="text" class="form-control" name="food[taste]" id="taste" placeholder="口味" value="{{food.taste}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">小窍门</span>
+			<input type="text" class="form-control" name="food[knack]" id="knack" placeholder="小窍门" value="{{food.knack}}">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食分类</span>
+			<select class="form-control" name="food[category]" id="category">
+				<option value="">请选择分类</option>
+				{{if categories && categories.length}}
+				{{each categories}}
+				<option value="{{$value.id}}" {{if food.category == $value.id}}selected{{/if}}>{{$value.name}}</option>
+				{{/each}}
+				{{/if}}
+			</select>
+		</div>
+		<div class="post-wrap">
+			<div id="uploader-demo">
+			    <div id="fileList" class="uploader-list"></div>
+			    <div id="filePicker">本地上传</div>
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">美食海报</span>
+				<input type="text" class="form-control" name="food[poster]" id="poster" placeholder="可录入图片地址或本地上传" value="{{food.poster}}">
+			</div>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">视频地址</span>
+			<input type="text" class="form-control" name="food[trailer]" id="trailer" placeholder="视频地址" value="{{food.trailer}}">
+		</div>
+		<div class="input-group" style="height:80px">
+			<span class="input-group-addon">美食介绍</span>
+			<textarea class="form-control" name="food[summary]" id="summary" placeholder="美食介绍">{{food.summary}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤1</span>
+			<textarea class="form-control" name="food[explain0]" id="explain0" placeholder="美食做法步骤">{{food.explain0}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤2</span>
+			<textarea class="form-control" name="food[explain1]" id="explain1" placeholder="美食做法步骤">{{food.explain1}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤3</span>
+			<textarea class="form-control" name="food[explain2]" id="explain2" placeholder="美食做法步骤">{{food.explain2}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤4</span>
+			<textarea class="form-control" name="food[explain3]" id="explain3" placeholder="美食做法步骤">{{food.explain3}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤5</span>
+			<textarea class="form-control" name="food[explain4]" id="explain4" placeholder="美食做法步骤">{{food.explain4}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤6</span>
+			<textarea class="form-control" name="food[explain5]" id="explain5" placeholder="美食做法步骤">{{food.explain5}}</textarea>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">美食做法步骤7</span>
+			<textarea class="form-control" name="food[explain6]" id="explain6" placeholder="美食做法步骤">{{food.explain6}}</textarea>
+		</div>
+		{{if food.id}}
+		<input type="hidden" name="food[_id]" value="{{food.id}}">
+		{{/if}}
+		<button type="submit" class="btn btn-primary" id="submitForm"><i class="fa fa-save"></i>{{if food.id}}保存并修改{{else}}保存并添加{{/if}}</button>
+	</form>
+</div>
+<script type="text/javascript" src="/libs/webuploader/webuploader.min.js"></script> 
+<script type="text/javascript" src="/js/addFood.js"></script>
+</body>
+</html>

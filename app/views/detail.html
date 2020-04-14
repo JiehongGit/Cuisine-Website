@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/detail.css">
+</head>
+<body>
+{{include '/include/nav-top'}}
+{{include '/include/nav-search'}}
+<div class="container">
+	<div class="row">
+		<h1 class="food-name">《{{food.title}}》</h1>
+		<!-- 横线分割 -->
+		<hr style="margin-bottom:30px; background-color:#666666; height: 3px;"/>
+		<div class="col-md-6 clearfix">
+			<div class="main-post col-md-3">
+				<img src="{{food.poster}}">
+			</div>
+			<div class="info col-md-9">
+				<p><span class="title">主料:</span>{{food.main}}</p>
+				<p><span class="title">辅料:</span>{{food.assist}}</p>
+				<p><span class="title">口味:</span>{{food.taste}}</p>
+				<p><span class="title">小窍门:</span>{{food.knack}}</p>
+			</div>
+			<div class="explain col-md-12">
+				<div class="alert alert-info">美食做法步骤</div>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain0}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain1}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain2}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain3}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain4}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain5}}</p>
+				<p style="letter-spacing:1px;margin-top:10px; margin-bottom:10x  ">{{food.explain6}}</p>
+			</div>
+		</div>
+		<div class="col-md-6 video-wrap">
+			<div class="panel panel-default ranks">
+				<div class="panel-heading">美食视频观看</div>
+  				<div class="panel-body">
+  					{{if food.trailer}}
+					<video src="{{food.trailer}}", allowFullScreen="true", width="522", height="300", align="middle", controls="controls")></video>
+  					{{else}}
+  					<input class="form-control" type="text" disabled value="暂无资源">
+  					{{/if}}
+				</div>
+				<div class="panel-heading">美食介绍</div>
+				<div class="panel-body">  
+					{{if food.summary}}
+					<div class="panel-body">{{food.summary}}</div>
+					<!-- <input class="form-control" type="text" value="{{food.summary}}"> -->
+					{{else}}
+					<input class="form-control" type="text" disabled value="暂无介绍">
+					{{/if}}
+				</div> 
+			</div>
+		</div>
+	</div>
+
+	<div class="alert alert-success" style="margin-top:30px;">美食评论区</div>
+	<div class="comment-panel">
+		<ul class="comments-list">
+			<li class="comment-title">评论列表</li>
+			{{if comments.length}}
+			{{each comments as comment floor}}
+			<li class="comment">
+				<div class="comment-img">
+					<img src="/images/noname.jpg" />
+				</div>
+				<div class="comment-body">
+					<p class="clearfix">
+						<a href="javascript:;" class="fl">{{comment.from.name}}</a>
+						<span class="fr">第{{floor+1}}楼</span>
+					</p>
+					<div class="comment-content">
+						{{comment.content}}
+					</div>
+					<p class="toolbar clearfix">					
+						<!-- <span class="fl">{{comment.createtime}}</span> -->
+						<span class="fl">{{moment(comment.meta.createAt).format('YYYY-MM-DD H:mm:ss')}}</span>
+						<a href="#replay-box" data-cid="{{comment.id}}" toUser="{{comment.from.name}}" userId="{{comment.from.id}}" class="fr">回复</a>
+					</p>
+				</div>
+				{{if comment.reply}}
+				{{each comment.reply as reply index}}
+					<div class="reply">
+						<div class="comment-img">
+							<img src="/images/noname.jpg"/>
+						</div>
+						<div class="comment-body">
+							<p>
+								<a href="javascript:;">{{reply.from.name}}</a>
+								<span class="text-primary">回复</span>
+								<a href="javascript:;">{{reply.to.name}}</a>
+							</p>
+							<div class="comment-content">
+								{{reply.content}}
+							</div>
+							<p class="toolbar clearfix">
+								<span class="fl">{{moment(reply.meta.createAt).format('YYYY-MM-DD H:mm:ss')}}</span>
+								<a href="#replay-box" data-cid="{{comment.id}}" toUser="{{reply.from.name}}" userId="{{reply.from.id}}" class="fr">回复</a>
+							</p>
+						</div>
+					</div>
+				{{/each}}
+				{{/if}}
+			</li>
+			{{/each}}
+			{{else}}
+			<li class="comment-empty">暂无评论</li>
+			{{/if}}
+		</ul>
+		{{if user}}
+		<div class="replybox" id="replay-box">
+			<img src="/images/noname.jpg"/>
+			<form method="post" action="/food/comment/reply" id="replay-form">
+				<input type="hidden" name="comment[from]" value="{{user._id}}" />
+				<input type="hidden" name="comment[food]" value="{{food.id}}" />
+				<div class="textarea-wrap">
+					<textarea name="comment[content]" placeholder="说点什么吧..."></textarea>
+				</div>
+				<div class="post-toolbar">
+					<p>
+						<span class="ba-mr-20">评论人：{{user.name}}</span>
+						<span class="none"> 回复：<strong reply-user></strong></span>
+					</p>
+					<input type="submit" class="post-btn" value="评论" />
+				</div>
+			 </form>
+		{{else}}
+		 <div class="nologin">
+		 	<a href="/register#signin" style="color:#FF3030">登录</a>了才能参与评论。如果你还没有账号快来<a href="/register#signup" style="color:#FF3030">注册</a>一个吧！
+		 </div>
+		{{/if}}
+		</div>
+	</div>
+</div>
+{{include '/include/footer'}}
+<script type="text/javascript" src="/js/detail.js"></script>
+</body>
+</html>

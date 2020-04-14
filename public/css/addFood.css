@@ -1,0 +1,25 @@
+.container {
+	padding-bottom:30px
+}
+form {
+	margin-top:20px
+}
+form .input-group {
+	margin-bottom:15px
+}
+/* 步骤输入框大小 */
+form textarea.form-control {
+	height:50px
+}
+.post-wrap .input-group {
+	width:85%
+}
+.post-wrap #filePicker {
+	float:right
+}
+button .fa {
+	margin-right:5px
+}
+#uploader-demo .info {
+	text-align:center
+}
